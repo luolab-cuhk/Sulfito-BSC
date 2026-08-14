@@ -2,13 +2,13 @@
 
 This repository contains the scripts and data used to analyze the manuscript "Rapid Speciation Characterized by Incomplete Lineage Sorting in the Globally Distributed Bacterium Sulfitobacter".
 
-This repository focuses on **phylogenetic reconstruction, restriction-modification system identification, quartet analyses, genomic identity scanning, and neutral simulations** for Sulfitobacter genomes.
+This repository focuses on **phylogenetic reconstruction, restriction-modification system identification, quartet analyses, genomic identity scanning, neutral simulations, and genomovar analysis** for Sulfitobacter genomes.
 
 ## Installation
 
 ### Python packages
 ```bash
-pip install pandas biopython tqdm ete3 plotly
+pip install pandas biopython tqdm ete3 plotly numpy scipy matplotlib
 ```
 
 ### Required software
@@ -200,6 +200,21 @@ This directory contains a C++ program for simulating neutral evolution and haplo
 
 ---
 
+### **06-genomovar-analysis/** - Genomovar Analysis
+
+This directory tests whether each major *Sulfitobacter* clade subdivides into finer-scale ANI-defined units ("genomovars") and whether such units, rather than the clades themselves, are the population structure at which ancestral sequence variants are fixed. 
+
+- **genomovar_analysis.py**  
+  Main analysis: within-clade ANI distribution, genomovar delineation by average-linkage clustering across a sweep of ANI thresholds (99.2–99.9%) and linkage methods, nucleotide diversity, the genomovar partition test, a size-preserving permutation control, and clade-level sorting completeness.
+
+- **make_figure.py**  
+  Builds the summary figure (within-clade ANI distribution, genomovar counts vs. threshold, and polymorphism partitioning).
+
+**Input**: fastANI pairwise identities (`Sulfito_ANI.txt`), clade assignments (`non_redundant_gnm.txt`, `metadata.tsv`), and a joint four-clade core-LCB alignment (produced by progressiveMauve using non-redundant genomes)  
+**Output**: genomovar assignments and partition-test tables, and `Fig_genomovar.{pdf,png}`
+
+---
+
 ## Folders
 
 - **01-phylogeny-construction/**  
@@ -216,6 +231,9 @@ This directory contains a C++ program for simulating neutral evolution and haplo
 
 - **05-neutral-simulation/**  
   Contains a C++ simulation program (`neutral_simulation.cpp`) for modeling neutral evolution and haplotype dynamics in bacterial populations. The program simulates population genetics processes including migration, recombination, mutation, and selection, with a focus on restriction-modification system incompatibility loci. Output includes haplotype frequency trajectories, fixation records, and population parameter files.
+
+- **06-genomovar-analysis/**  
+  Contains scripts testing whether *Sulfitobacter* clades subdivide into ANI-defined genomovars and whether such genomovars, rather than the clades, are the units at which ancestral sequence variants are fixed. Includes genomovar delineation, a partition test with permutation control and the summary figure. 
 
 ---
 
@@ -253,5 +271,3 @@ Genome sequences and associated data are available under the following NCBI BioP
 
 If you have any questions or suggestions regarding these scripts, please contact:
 - yoyostudents5775@gmail.com
-
-
